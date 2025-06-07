@@ -1,6 +1,6 @@
 class TelegramBotPanel {
     constructor() {
-        this.botToken = '7550422055:AAFhlqxuhs599Qc4qbziSyv5GlrcH7gt8fY';
+        this.botToken = '7713545288:AAH12fWBmelTuLl3wHeAFKGKDdjFNsrMp94';
         this.botRunning = this.loadBotState();
         this.autoMessageInterval = null;
         this.users = new Set();
