@@ -1458,6 +1458,63 @@ Período: Últimos ${report.period} dias
             this.showNotification('Erro ao retomar bot - inicie manualmente', 'warning');
         }
     }
+
+    handleCallbackQuery(callbackQuery) {
+        const userId = callbackQuery.from.id;
+        const username = callbackQuery.from.username || callbackQuery.from.first_name;
+        const data = callbackQuery.data;
+        const messageId = callbackQuery.message.message_id;
+
+        this.log(`↩️ Callback Query de ${username} (${userId}): ${data}`, 'sales');
+
+        // Processar o callback data
+        this.processCallbackData(data, userId, messageId);
+    }
+
+    async processCallbackData(data, userId, messageId) {
+        switch (data) {
+            case 'ver_catalogo':
+                const catalog = this.generateProductCatalog();
+                this.sendMessage(userId, catalog);
+                break;
+            case 'falar_com_atendente':
+                this.sendMessage(userId, 'Você será conectado a um atendente em breve.');
+                this.createSupportTicket(userId);
+                break;
+            default:
+                this.sendMessage(userId, 'Opção inválida.');
+        }
+
+        // Remover os botões da mensagem original
+        await this.removeInlineKeyboard(userId, messageId);
+    }
+
+    async removeInlineKeyboard(userId, messageId) {
+        try {
+            const payload = {
+                chat_id: userId,
+                message_id: messageId
+            };
+
+            const response = await fetch(`https://api.telegram.org/bot${this.botToken}/editMessageReplyMarkup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (data.ok) {
+                this.log(`⌨️ Inline keyboard removido da mensagem ${messageId} para ${userId}`, 'system');
+            } else {
+                this.log(`❌ Erro ao remover inline keyboard: ${data.description}`, 'error');
+            }
+        } catch (error) {
+            this.log(`❌ Erro ao remover inline keyboard: ${error.message}`, 'error');
+        }
+    }
 }
 
 // Initialize the Sales Bot when the page loads
