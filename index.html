@@ -4,423 +4,466 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Painel de Controle - Bot Telegram</title>
-    
+    <title>Sales Bot - Sistema de Vendas Inteligente</title>
+
     <!-- PWA Meta Tags -->
-    <meta name="description" content="Painel completo para gerenciar seu bot do Telegram">
-    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="Sistema completo de vendas com bot inteligente e estratégias de marketing">
+    <meta name="theme-color" content="#10b981">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Bot Panel">
+    <meta name="apple-mobile-web-app-title" content="Sales Bot">
     <meta name="mobile-web-app-capable" content="yes">
-    
+
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    
+
     <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik05NiA0OEM3My45IDQ4IDU2IDY1LjkgNTYgODhWMTA0QzU2IDEyNi4xIDczLjkgMTQ0IDk2IDE0NEMxMTguMSAxNDQgMTM2IDEyNi4xIDEzNiAxMDRWODhDMTM2IDY1LjkgMTE4LjEgNDggOTYgNDhaIiBmaWxsPSJ3aGl0ZSIvPgo8Y2lyY2xlIGN4PSI4MCIgY3k9IjgwIiByPSI0IiBmaWxsPSIjNjY3ZWVhIi8+CjxjaXJjbGUgY3g9IjExMiIgY3k9IjgwIiByPSI0IiBmaWxsPSIjNjY3ZWVhIi8+CjxwYXRoIGQ9Ik04OCA5NkgxMDRDMTA2LjIgOTYgMTA4IDk3LjggMTA4IDEwMFYxMDRDMTA4IDEwNi4yIDEwNi4yIDEwOCAxMDQgMTA4SDg4Qzg1LjggMTA4IDg0IDEwNi4yIDg0IDEwNFYxMDBDODQgOTcuOCA4NS44IDk2IDg4IDk2WiIgZmlsbD0iIzY2N2VlYSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfbGluZWFyXzFfMSIgeDE9IjAiIHkxPSIwIiB4Mj0iMTkyIiB5Mj0iMTkyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiM2NjdlZWEiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNzY0YmEyIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+">
-    
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik05NiA0OEM3My45IDQ4IDU2IDY1LjkgNTYgODhWMTA0QzU2IDEyNi4xIDczLjkgMTQ0IDk2IDE0NEMxMTguMSAxNDQgMTM2IDEyNi4xIDEzNiAxMDRWODhDMTM2IDY1LjkgMTE4LjEgNDggOTYgNDhaIiBmaWxsPSJ3aGl0ZSIvPgo8Y2lyY2xlIGN4PSI4MCIgY3k9IjgwIiByPSI0IiBmaWxsPSIjMTBiOTgxIi8+CjxjaXJjbGUgY3g9IjExMiIgY3k9IjgwIiByPSI0IiBmaWxsPSIjMTBiOTgxIi8+CjxwYXRoIGQ9Ik04OCA5NkgxMDRDMTA2LjIgOTYgMTA4IDk3LjggMTA4IDEwMFYxMDRDMTA4IDEwNi4yIDEwNi4yIDEwOCAxMDQgMTA4SDg4Qzg1LjggMTA4IDg0IDEwNi4yIDg0IDEwNFYxMDBDODQgOTcuOCA4NS44IDk2IDg4IDk2WiIgZmlsbD0iIzEwYjk4MSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfbGluZWFyXzFfMSIgeDE9IjAiIHkxPSIwIiB4Mj0iMTkyIiB5Mj0iMTkyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiMxMGI5ODEiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDU5NjY5Ii8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+">
+
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🤖 Painel de Controle do Bot</h1>
+            <div class="header-content">
+                <h1>💰 Sales Bot</h1>
+                <p class="header-subtitle">Sistema de Vendas Inteligente</p>
+            </div>
             <div class="status" id="botStatus">
                 <span class="status-indicator offline"></span>
-                <span>Bot Offline</span>
+                <span>Offline</span>
             </div>
         </header>
 
         <div class="panel-grid">
+            <!-- Sales Dashboard -->
+            <section class="panel-section dashboard-section full-width">
+                <h2>📊 Dashboard de Vendas</h2>
+                <div class="sales-metrics">
+                    <div class="metric-card revenue">
+                        <div class="metric-icon">💰</div>
+                        <div class="metric-content">
+                            <span class="metric-number" id="totalRevenue">R$ 0,00</span>
+                            <span class="metric-label">Receita Total</span>
+                        </div>
+                    </div>
+                    <div class="metric-card conversions">
+                        <div class="metric-icon">🎯</div>
+                        <div class="metric-content">
+                            <span class="metric-number" id="conversions">0</span>
+                            <span class="metric-label">Conversões</span>
+                        </div>
+                    </div>
+                    <div class="metric-card leads">
+                        <div class="metric-icon">👥</div>
+                        <div class="metric-content">
+                            <span class="metric-number" id="totalLeads">0</span>
+                            <span class="metric-label">Leads Captados</span>
+                        </div>
+                    </div>
+                    <div class="metric-card conversion-rate">
+                        <div class="metric-icon">📈</div>
+                        <div class="metric-content">
+                            <span class="metric-number" id="conversionRate">0%</span>
+                            <span class="metric-label">Taxa Conversão</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Bot Control Section -->
             <section class="panel-section">
-                <h2>Controle do Bot</h2>
+                <h2>🤖 Controle do Bot</h2>
                 <div class="control-buttons">
-                    <button id="startBot" class="btn btn-success">Iniciar Bot</button>
-                    <button id="stopBot" class="btn btn-danger">Parar Bot</button>
-                    <button id="restartBot" class="btn btn-warning">Reiniciar Bot</button>
+                    <button id="startBot" class="btn btn-success">🚀 Iniciar Bot</button>
+                    <button id="stopBot" class="btn btn-danger">⏹️ Parar Bot</button>
+                    <button id="restartBot" class="btn btn-warning">🔄 Reiniciar</button>
                 </div>
                 <div class="bot-info">
-                    <p><strong>Token:</strong> <span id="tokenDisplay">7550422055:AAF***</span></p>
-                    <p><strong>Usuários Ativos:</strong> <span id="activeUsers">0</span></p>
+                    <p><strong>👥 Leads Ativos:</strong> <span id="activeLeads">0</span></p>
+                    <p><strong>💬 Conversas Hoje:</strong> <span id="todayConversations">0</span></p>
                 </div>
             </section>
 
-            <!-- Messages Configuration -->
-            <section class="panel-section">
-                <h2>Configuração de Mensagens</h2>
-                <div class="message-config">
-                    <label for="welcomeMessage">Mensagem de Boas-vindas:</label>
-                    <textarea id="welcomeMessage" placeholder="Digite a mensagem de boas-vindas...">Olá! Bem-vindo ao nosso bot! 👋</textarea>
-                    
-                    <label for="helpMessage">Mensagem de Ajuda:</label>
-                    <textarea id="helpMessage" placeholder="Digite a mensagem de ajuda...">Comandos disponíveis:
-/start - Iniciar conversa
-/help - Mostrar ajuda
-/config - Configurações</textarea>
-                    
-                    <button id="saveMessages" class="btn btn-primary">Salvar Mensagens</button>
-                </div>
-            </section>
-
-            <!-- Automatic Messages -->
-            <section class="panel-section">
-                <h2>Mensagens Automáticas</h2>
-                <div class="auto-messages">
-                    <div class="auto-message-item">
-                        <label for="autoInterval">Intervalo (minutos):</label>
-                        <input type="number" id="autoInterval" value="60" min="1">
-                    </div>
-                    <div class="auto-message-item">
-                        <label for="autoMessage">Mensagem Automática:</label>
-                        <textarea id="autoMessage" placeholder="Mensagem que será enviada automaticamente...">Lembre-se de verificar nossas atualizações! 📢</textarea>
-                    </div>
-                    <div class="auto-message-controls">
-                        <button id="enableAutoMessages" class="btn btn-success">Ativar</button>
-                        <button id="disableAutoMessages" class="btn btn-danger">Desativar</button>
-                    </div>
-                    <p class="status-text">Status: <span id="autoMessageStatus">Desativado</span></p>
-                </div>
-            </section>
-
-            <!-- Statistics -->
-            <section class="panel-section">
-                <h2>Estatísticas</h2>
-                <div class="stats">
-                    <div class="stat-item">
-                        <span class="stat-number" id="totalMessages">0</span>
-                        <span class="stat-label">Mensagens Enviadas</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="totalUsers">0</span>
-                        <span class="stat-label">Total de Usuários</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="todayMessages">0</span>
-                        <span class="stat-label">Mensagens Hoje</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Image Upload -->
-            <section class="panel-section">
-                <h2>Enviar Imagem</h2>
-                <div class="image-upload">
-                    <input type="file" id="imageFile" accept="image/*" style="margin-bottom: 10px;">
-                    <input type="text" id="imageCaption" placeholder="Legenda da imagem (opcional)" style="margin-bottom: 10px; width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px;">
-                    <div class="image-controls">
-                        <button id="sendToAll" class="btn btn-primary">Enviar para Todos</button>
-                        <button id="sendToUser" class="btn btn-secondary">Enviar para Usuário Específico</button>
-                    </div>
-                    <input type="text" id="specificUserId" placeholder="ID do usuário" style="margin-top: 10px; width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; display: none;">
-                </div>
-            </section>
-
-            <!-- Conversation Flow -->
+            <!-- Sales Funnel Management -->
             <section class="panel-section full-width">
-                <h2>Fluxo de Conversa</h2>
-                <div class="conversation-flow">
-                    <div class="flow-controls">
-                        <button id="addFlowStep" class="btn btn-primary">Adicionar Etapa</button>
-                        <button id="saveFlow" class="btn btn-success">Salvar Fluxo</button>
-                        <button id="resetFlow" class="btn btn-danger">Resetar Fluxo</button>
+                <h2>🔄 Funil de Vendas</h2>
+                <div class="funnel-management">
+                    <div class="funnel-stages">
+                        <div class="stage-card awareness">
+                            <h3>🎯 Consciência</h3>
+                            <div class="stage-count" id="awarenessCount">0</div>
+                            <p>Usuários descobrindo seu produto</p>
+                        </div>
+                        <div class="stage-card interest">
+                            <h3>🤔 Interesse</h3>
+                            <div class="stage-count" id="interestCount">0</div>
+                            <p>Demonstraram interesse</p>
+                        </div>
+                        <div class="stage-card consideration">
+                            <h3>💭 Consideração</h3>
+                            <div class="stage-count" id="considerationCount">0</div>
+                            <p>Avaliando a compra</p>
+                        </div>
+                        <div class="stage-card purchase">
+                            <h3>💰 Compra</h3>
+                            <div class="stage-count" id="purchaseCount">0</div>
+                            <p>Clientes convertidos</p>
+                        </div>
                     </div>
-                    <div id="flowSteps" class="flow-steps">
-                        <!-- Etapas do fluxo serão adicionadas aqui -->
+                    <div class="funnel-controls">
+                        <button id="createFunnelStep" class="btn btn-primary">➕ Adicionar Etapa</button>
+                        <button id="optimizeFunnel" class="btn btn-success">⚡ Otimizar Funil</button>
+                        <button id="analyzeFunnel" class="btn btn-secondary">📊 Analisar Performance</button>
                     </div>
                 </div>
             </section>
 
-            <!-- Broadcast Messages -->
-            <section class="panel-section">
-                <h2>Enviar Mensagem em Massa</h2>
-                <div class="broadcast">
-                    <textarea id="broadcastMessage" placeholder="Digite a mensagem para enviar a todos os usuários..."></textarea>
-                    <button id="sendBroadcast" class="btn btn-primary">Enviar para Todos</button>
-                </div>
-            </section>
-
-            <!-- Custom Commands -->
-            <section class="panel-section">
-                <h2>Comandos Personalizados</h2>
-                <div class="custom-commands">
-                    <div class="command-input">
-                        <input type="text" id="commandName" placeholder="Nome do comando (ex: /precos)">
-                        <textarea id="commandResponse" placeholder="Resposta do comando..."></textarea>
-                        <button id="addCommand" class="btn btn-primary">Adicionar Comando</button>
-                    </div>
-                    <div id="commandsList" class="commands-list"></div>
-                </div>
-            </section>
-
-            <!-- Scheduled Messages -->
-            <section class="panel-section">
-                <h2>Mensagens Agendadas</h2>
-                <div class="scheduled-messages">
-                    <input type="datetime-local" id="scheduleTime">
-                    <textarea id="scheduledMessage" placeholder="Mensagem agendada..."></textarea>
-                    <select id="scheduleTarget">
-                        <option value="all">Todos os usuários</option>
-                        <option value="specific">Usuário específico</option>
-                    </select>
-                    <input type="text" id="scheduleUserId" placeholder="ID do usuário" style="display: none;">
-                    <button id="scheduleMessage" class="btn btn-primary">Agendar Mensagem</button>
-                    <div id="scheduledList" class="scheduled-list"></div>
-                </div>
-            </section>
-
-            <!-- Content Filter -->
-            <section class="panel-section">
-                <h2>Filtro de Conteúdo</h2>
-                <div class="content-filter">
-                    <label>Palavras Bloqueadas:</label>
-                    <textarea id="blockedWords" placeholder="Digite palavras proibidas separadas por vírgula..."></textarea>
-                    <div class="filter-options">
-                        <label><input type="checkbox" id="autoDelete"> Deletar mensagens automaticamente</label>
-                        <label><input type="checkbox" id="warnUser"> Avisar usuário</label>
-                        <label><input type="checkbox" id="banUser"> Banir usuário após 3 avisos</label>
-                    </div>
-                    <button id="saveFilter" class="btn btn-primary">Salvar Filtros</button>
-                </div>
-            </section>
-
-            <!-- Analytics Dashboard -->
+            <!-- Marketing Strategies -->
             <section class="panel-section full-width">
-                <h2>Dashboard Analítico</h2>
-                <div class="analytics-dashboard">
+                <h2>🎯 Estratégias de Marketing</h2>
+                <div class="marketing-strategies">
+                    <div class="strategy-tabs">
+                        <button class="strategy-tab active" data-strategy="welcome">🎉 Boas-vindas</button>
+                        <button class="strategy-tab" data-strategy="nurturing">🌱 Nutrição</button>
+                        <button class="strategy-tab" data-strategy="closing">💸 Fechamento</button>
+                        <button class="strategy-tab" data-strategy="retention">❤️ Retenção</button>
+                        <button class="strategy-tab" data-strategy="upsell">⬆️ Upsell</button>
+                    </div>
+                    
+                    <div id="welcomeStrategy" class="strategy-content active">
+                        <h3>🎉 Estratégia de Boas-vindas</h3>
+                        <div class="strategy-options">
+                            <label>
+                                <input type="checkbox" id="welcomeGift" checked> 
+                                🎁 Oferecer brinde de boas-vindas
+                            </label>
+                            <label>
+                                <input type="checkbox" id="welcomeDiscount" checked> 
+                                💎 Desconto exclusivo para novos usuários
+                            </label>
+                            <label>
+                                <input type="checkbox" id="welcomeSurvey"> 
+                                📋 Pesquisa de perfil do cliente
+                            </label>
+                        </div>
+                        <textarea id="welcomeMessage" placeholder="Mensagem de boas-vindas personalizada...">🎉 Olá! Bem-vindo(a) ao nosso bot de vendas! 
+
+Como presente de boas-vindas, você ganhou 20% OFF na sua primeira compra! 🎁
+
+Use o código: BEMVINDO20
+
+O que posso ajudar você hoje?</textarea>
+                        <button id="saveWelcomeStrategy" class="btn btn-primary">💾 Salvar Estratégia</button>
+                    </div>
+
+                    <div id="nurturingStrategy" class="strategy-content">
+                        <h3>🌱 Estratégia de Nutrição</h3>
+                        <div class="nurturing-sequence">
+                            <div class="sequence-item">
+                                <span class="sequence-day">Dia 1:</span>
+                                <span class="sequence-action">Envio de conteúdo educativo</span>
+                            </div>
+                            <div class="sequence-item">
+                                <span class="sequence-day">Dia 3:</span>
+                                <span class="sequence-action">Case de sucesso de cliente</span>
+                            </div>
+                            <div class="sequence-item">
+                                <span class="sequence-day">Dia 7:</span>
+                                <span class="sequence-action">Oferta especial personalizada</span>
+                            </div>
+                        </div>
+                        <button id="editNurturingSequence" class="btn btn-secondary">✏️ Editar Sequência</button>
+                    </div>
+
+                    <div id="closingStrategy" class="strategy-content">
+                        <h3>💸 Estratégia de Fechamento</h3>
+                        <div class="closing-techniques">
+                            <label>
+                                <input type="checkbox" id="scarcityTechnique" checked> 
+                                ⏰ Técnica de escassez (oferta limitada)
+                            </label>
+                            <label>
+                                <input type="checkbox" id="socialProof" checked> 
+                                👥 Prova social (depoimentos)
+                            </label>
+                            <label>
+                                <input type="checkbox" id="urgencyTechnique" checked> 
+                                🔥 Urgência (desconto por tempo limitado)
+                            </label>
+                        </div>
+                        <div class="closing-config">
+                            <label>Tempo de oferta especial (horas):</label>
+                            <input type="number" id="urgencyTimer" value="24" min="1" max="168">
+                            <label>Desconto de urgência (%):</label>
+                            <input type="number" id="urgencyDiscount" value="15" min="5" max="50">
+                        </div>
+                    </div>
+
+                    <div id="retentionStrategy" class="strategy-content">
+                        <h3>❤️ Estratégia de Retenção</h3>
+                        <div class="retention-features">
+                            <label>
+                                <input type="checkbox" id="birthdayDiscount" checked> 
+                                🎂 Desconto de aniversário
+                            </label>
+                            <label>
+                                <input type="checkbox" id="loyaltyProgram" checked> 
+                                ⭐ Programa de fidelidade
+                            </label>
+                            <label>
+                                <input type="checkbox" id="winBackCampaign"> 
+                                📞 Campanha de reconquista
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="upsellStrategy" class="strategy-content">
+                        <h3>⬆️ Estratégia de Upsell</h3>
+                        <div class="upsell-config">
+                            <label>Produto complementar sugerido:</label>
+                            <input type="text" id="upsellProduct" placeholder="Ex: Produto Premium">
+                            <label>Desconto para upgrade (%):</label>
+                            <input type="number" id="upsellDiscount" value="10" min="5" max="30">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lead Management -->
+            <section class="panel-section full-width">
+                <h2>👥 Gestão de Leads</h2>
+                <div class="lead-management">
+                    <div class="lead-filters">
+                        <select id="leadStatus">
+                            <option value="all">Todos os Leads</option>
+                            <option value="new">Novos</option>
+                            <option value="contacted">Contatados</option>
+                            <option value="qualified">Qualificados</option>
+                            <option value="converted">Convertidos</option>
+                        </select>
+                        <select id="leadSource">
+                            <option value="all">Todas as Fontes</option>
+                            <option value="telegram">Telegram</option>
+                            <option value="whatsapp">WhatsApp</option>
+                            <option value="website">Website</option>
+                        </select>
+                        <button id="exportLeads" class="btn btn-secondary">📤 Exportar</button>
+                    </div>
+                    <div id="leadsList" class="leads-list">
+                        <!-- Leads serão carregados aqui -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Catalog -->
+            <section class="panel-section full-width">
+                <h2>🛍️ Catálogo de Produtos</h2>
+                <div class="product-management">
+                    <div class="product-creator">
+                        <h3>➕ Adicionar Produto</h3>
+                        <div class="product-form">
+                            <div class="form-group">
+                                <label>Nome do Produto:</label>
+                                <input type="text" id="productName" placeholder="Ex: Curso Online de Marketing">
+                            </div>
+                            <div class="form-group">
+                                <label>Descrição:</label>
+                                <textarea id="productDescription" placeholder="Descrição completa do produto..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Preço (R$):</label>
+                                <input type="number" id="productPrice" placeholder="0.00" step="0.01" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Categoria:</label>
+                                <select id="productCategory">
+                                    <option value="digital">Produto Digital</option>
+                                    <option value="physical">Produto Físico</option>
+                                    <option value="service">Serviço</option>
+                                    <option value="course">Curso</option>
+                                    <option value="consultation">Consultoria</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Comissão (%):</label>
+                                <input type="number" id="productCommission" value="10" min="0" max="100">
+                            </div>
+                            <button id="addProduct" class="btn btn-primary">➕ Adicionar Produto</button>
+                        </div>
+                    </div>
+                    <div id="productsList" class="products-list">
+                        <!-- Produtos serão carregados aqui -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Automated Campaigns -->
+            <section class="panel-section">
+                <h2>📢 Campanhas Automatizadas</h2>
+                <div class="campaign-management">
+                    <div class="campaign-templates">
+                        <h3>📋 Templates Pré-configurados</h3>
+                        <div class="template-list">
+                            <div class="template-item">
+                                <span class="template-name">🔥 Flash Sale</span>
+                                <button class="btn btn-sm btn-primary" onclick="salesBot.loadCampaignTemplate('flash-sale')">Usar</button>
+                            </div>
+                            <div class="template-item">
+                                <span class="template-name">🎯 Remarketing</span>
+                                <button class="btn btn-sm btn-primary" onclick="salesBot.loadCampaignTemplate('remarketing')">Usar</button>
+                            </div>
+                            <div class="template-item">
+                                <span class="template-name">💝 Black Friday</span>
+                                <button class="btn btn-sm btn-primary" onclick="salesBot.loadCampaignTemplate('black-friday')">Usar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="campaign-creator">
+                        <h3>🎨 Criar Campanha</h3>
+                        <input type="text" id="campaignName" placeholder="Nome da campanha">
+                        <textarea id="campaignMessage" placeholder="Mensagem da campanha..."></textarea>
+                        <select id="campaignTarget">
+                            <option value="all">Todos os leads</option>
+                            <option value="new">Leads novos</option>
+                            <option value="inactive">Leads inativos</option>
+                            <option value="customers">Clientes ativos</option>
+                        </select>
+                        <button id="createCampaign" class="btn btn-success">🚀 Lançar Campanha</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- A/B Testing -->
+            <section class="panel-section">
+                <h2>🧪 Testes A/B</h2>
+                <div class="ab-testing">
+                    <div class="test-creator">
+                        <h3>➕ Novo Teste</h3>
+                        <label>Nome do Teste:</label>
+                        <input type="text" id="testName" placeholder="Ex: Mensagem de Boas-vindas">
+                        
+                        <label>Versão A:</label>
+                        <textarea id="versionA" placeholder="Primeira versão da mensagem..."></textarea>
+                        
+                        <label>Versão B:</label>
+                        <textarea id="versionB" placeholder="Segunda versão da mensagem..."></textarea>
+                        
+                        <label>Métrica de Sucesso:</label>
+                        <select id="successMetric">
+                            <option value="click_rate">Taxa de Clique</option>
+                            <option value="conversion_rate">Taxa de Conversão</option>
+                            <option value="response_rate">Taxa de Resposta</option>
+                        </select>
+                        
+                        <button id="startABTest" class="btn btn-primary">🧪 Iniciar Teste</button>
+                    </div>
+                    <div id="activeTests" class="active-tests">
+                        <!-- Testes ativos aparecerão aqui -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics & Reports -->
+            <section class="panel-section full-width">
+                <h2>📊 Analytics e Relatórios</h2>
+                <div class="analytics-section">
+                    <div class="chart-controls">
+                        <select id="chartPeriod">
+                            <option value="7">Últimos 7 dias</option>
+                            <option value="30">Últimos 30 dias</option>
+                            <option value="90">Últimos 90 dias</option>
+                        </select>
+                        <button id="generateReport" class="btn btn-secondary">📄 Gerar Relatório</button>
+                    </div>
                     <div class="charts-container">
                         <div class="chart-item">
-                            <h3>Mensagens por Hora</h3>
-                            <canvas id="messagesChart" width="400" height="200"></canvas>
+                            <h3>💰 Receita por Dia</h3>
+                            <canvas id="revenueChart" width="400" height="200"></canvas>
                         </div>
                         <div class="chart-item">
-                            <h3>Usuários Ativos</h3>
-                            <canvas id="usersChart" width="400" height="200"></canvas>
+                            <h3>🔄 Funil de Conversão</h3>
+                            <canvas id="funnelChart" width="400" height="200"></canvas>
                         </div>
                         <div class="chart-item">
-                            <h3>Análise de Sentimentos</h3>
-                            <div id="sentimentAnalysis" class="sentiment-display">
-                                <div class="sentiment-item">
-                                    <span class="sentiment-label">Positivo:</span>
-                                    <span class="sentiment-value" id="positiveCount">0</span>
-                                </div>
-                                <div class="sentiment-item">
-                                    <span class="sentiment-label">Neutro:</span>
-                                    <span class="sentiment-value" id="neutralCount">0</span>
-                                </div>
-                                <div class="sentiment-item">
-                                    <span class="sentiment-label">Negativo:</span>
-                                    <span class="sentiment-value" id="negativeCount">0</span>
-                                </div>
-                            </div>
+                            <h3>📈 Performance de Campanhas</h3>
+                            <canvas id="campaignChart" width="400" height="200"></canvas>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- AI Response System -->
+            <!-- Customer Support -->
             <section class="panel-section">
-                <h2>Respostas Inteligentes</h2>
-                <div class="ai-responses">
-                    <label><input type="checkbox" id="enableAI"> Ativar Respostas IA</label>
-                    <textarea id="aiPrompt" placeholder="Configurar personalidade da IA...">Você é um assistente prestativo e amigável. Responda de forma educada e útil.</textarea>
-                    <div class="ai-settings">
-                        <label>Confiança mínima: <input type="range" id="aiConfidence" min="0" max="100" value="70"></label>
-                        <span id="confidenceValue">70%</span>
+                <h2>🎧 Suporte ao Cliente</h2>
+                <div class="support-management">
+                    <div class="support-metrics">
+                        <div class="support-stat">
+                            <span class="support-number" id="openTickets">0</span>
+                            <span class="support-label">Tickets Abertos</span>
+                        </div>
+                        <div class="support-stat">
+                            <span class="support-number" id="avgResponseTime">0h</span>
+                            <span class="support-label">Tempo Médio</span>
+                        </div>
                     </div>
-                    <button id="saveAI" class="btn btn-primary">Salvar Configurações IA</button>
+                    <div class="support-controls">
+                        <button id="viewTickets" class="btn btn-primary">🎫 Ver Tickets</button>
+                        <button id="supportSettings" class="btn btn-secondary">⚙️ Configurações</button>
+                    </div>
                 </div>
             </section>
 
-            <!-- Backup System -->
+            <!-- Integration Settings -->
             <section class="panel-section">
-                <h2>Backup & Restauração</h2>
-                <div class="backup-system">
-                    <div class="backup-controls">
-                        <button id="createBackup" class="btn btn-success">Criar Backup</button>
-                        <button id="downloadBackup" class="btn btn-primary">Download Backup</button>
+                <h2>🔗 Integrações</h2>
+                <div class="integrations">
+                    <div class="integration-item">
+                        <span class="integration-name">💳 Gateway de Pagamento</span>
+                        <div class="integration-status disconnected" id="paymentGateway">Desconectado</div>
+                        <button class="btn btn-sm btn-primary" onclick="salesBot.connectIntegration('payment')">Conectar</button>
                     </div>
-                    <div class="restore-controls">
-                        <input type="file" id="backupFile" accept=".json">
-                        <button id="restoreBackup" class="btn btn-warning">Restaurar Backup</button>
+                    <div class="integration-item">
+                        <span class="integration-name">📧 Email Marketing</span>
+                        <div class="integration-status disconnected" id="emailMarketing">Desconectado</div>
+                        <button class="btn btn-sm btn-primary" onclick="salesBot.connectIntegration('email')">Conectar</button>
                     </div>
-                    <div id="backupStatus" class="backup-status"></div>
-                </div>
-            </section>
-
-            <!-- Button Management -->
-            <section class="panel-section">
-                <h2>Gerenciamento de Botões</h2>
-                <div class="button-management">
-                    <div class="button-creator">
-                        <h3>Criar Novo Botão</h3>
-                        <div class="button-config">
-                            <div class="button-input-group">
-                                <label>Texto do Botão:</label>
-                                <input type="text" id="buttonText" placeholder="Ex: Contato">
-                            </div>
-                            <div class="button-input-group">
-                                <label>Tipo de Resposta:</label>
-                                <select id="buttonResponseType">
-                                    <option value="text">Enviar Texto</option>
-                                    <option value="url">Abrir URL</option>
-                                    <option value="callback">Ação Personalizada</option>
-                                </select>
-                            </div>
-                            <div class="button-input-group">
-                                <label>Conteúdo da Resposta:</label>
-                                <textarea id="buttonResponse" placeholder="Digite o texto ou URL..."></textarea>
-                            </div>
-                            <div class="button-input-group">
-                                <label>Comando Associado:</label>
-                                <input type="text" id="buttonCommand" placeholder="Ex: /contato (opcional)">
-                            </div>
-                            <button id="addButton" class="btn btn-primary">Adicionar Botão</button>
-                        </div>
+                    <div class="integration-item">
+                        <span class="integration-name">📱 WhatsApp Business</span>
+                        <div class="integration-status disconnected" id="whatsappBusiness">Desconectado</div>
+                        <button class="btn btn-sm btn-primary" onclick="salesBot.connectIntegration('whatsapp')">Conectar</button>
                     </div>
-                    
-                    <div class="button-groups">
-                        <h3>Grupos de Botões</h3>
-                        <div class="group-creator">
-                            <input type="text" id="groupName" placeholder="Nome do grupo">
-                            <button id="createGroup" class="btn btn-secondary">Criar Grupo</button>
-                        </div>
-                        <div id="buttonGroups" class="button-groups-list"></div>
-                    </div>
-                    
-                    <div class="button-test">
-                        <h3>Testar Botões</h3>
-                        <div class="test-controls">
-                            <select id="testGroup">
-                                <option value="">Selecione um grupo</option>
-                            </select>
-                            <button id="testButtons" class="btn btn-warning">Enviar Teste</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Menu Management -->
-            <section class="panel-section full-width">
-                <h2>🍽️ Gerenciamento de Cardápio</h2>
-                <div class="menu-management">
-                    <div class="menu-creator">
-                        <h3>Criar Item do Cardápio</h3>
-                        <div class="menu-form">
-                            <div class="menu-input-group">
-                                <label>Nome do Item:</label>
-                                <input type="text" id="menuItemName" placeholder="Ex: Pizza Margherita">
-                            </div>
-                            <div class="menu-input-group">
-                                <label>Descrição:</label>
-                                <textarea id="menuItemDescription" placeholder="Descrição do item..."></textarea>
-                            </div>
-                            <div class="menu-input-group">
-                                <label>Preço (R$):</label>
-                                <input type="number" id="menuItemPrice" placeholder="0.00" step="0.01" min="0">
-                            </div>
-                            <div class="menu-input-group">
-                                <label>Categoria:</label>
-                                <select id="menuItemCategory">
-                                    <option value="principais">Pratos Principais</option>
-                                    <option value="bebidas">Bebidas</option>
-                                    <option value="sobremesas">Sobremesas</option>
-                                    <option value="entradas">Entradas</option>
-                                    <option value="lanches">Lanches</option>
-                                    <option value="pizzas">Pizzas</option>
-                                </select>
-                            </div>
-                            <div class="menu-input-group">
-                                <label>Imagem do Item:</label>
-                                <input type="file" id="menuItemImage" accept="image/*">
-                                <div id="imagePreview" class="image-preview"></div>
-                            </div>
-                            <div class="menu-input-group">
-                                <label>Status:</label>
-                                <select id="menuItemStatus">
-                                    <option value="disponivel">Disponível</option>
-                                    <option value="indisponivel">Indisponível</option>
-                                    <option value="promocao">Em Promoção</option>
-                                </select>
-                            </div>
-                            <button id="addMenuItem" class="btn btn-primary">Adicionar Item</button>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-categories">
-                        <h3>Cardápio por Categorias</h3>
-                        <div class="category-tabs">
-                            <button class="category-tab active" data-category="all">Todos</button>
-                            <button class="category-tab" data-category="principais">Principais</button>
-                            <button class="category-tab" data-category="bebidas">Bebidas</button>
-                            <button class="category-tab" data-category="sobremesas">Sobremesas</button>
-                            <button class="category-tab" data-category="entradas">Entradas</button>
-                            <button class="category-tab" data-category="lanches">Lanches</button>
-                            <button class="category-tab" data-category="pizzas">Pizzas</button>
-                        </div>
-                        <div id="menuItems" class="menu-items-grid"></div>
-                    </div>
-                    
-                    <div class="menu-controls">
-                        <h3>Controles do Cardápio</h3>
-                        <div class="menu-actions">
-                            <button id="sendMenuToAll" class="btn btn-success">Enviar Cardápio Completo</button>
-                            <button id="sendCategoryMenu" class="btn btn-primary">Enviar por Categoria</button>
-                            <select id="categorySelect">
-                                <option value="">Selecione uma categoria</option>
-                                <option value="principais">Pratos Principais</option>
-                                <option value="bebidas">Bebidas</option>
-                                <option value="sobremesas">Sobremesas</option>
-                                <option value="entradas">Entradas</option>
-                                <option value="lanches">Lanches</option>
-                                <option value="pizzas">Pizzas</option>
-                            </select>
-                            <button id="createMenuButtons" class="btn btn-warning">Criar Botões de Pedido</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Language Settings -->
-            <section class="panel-section">
-                <h2>Configurações de Idioma</h2>
-                <div class="language-settings">
-                    <select id="botLanguage">
-                        <option value="pt">Português</option>
-                        <option value="en">English</option>
-                        <option value="es">Español</option>
-                        <option value="fr">Français</option>
-                    </select>
-                    <button id="saveLanguage" class="btn btn-primary">Salvar Idioma</button>
-                    <div class="auto-translate">
-                        <label><input type="checkbox" id="autoTranslate"> Auto-traduzir mensagens</label>
+                    <div class="integration-item">
+                        <span class="integration-name">📊 Google Analytics</span>
+                        <div class="integration-status disconnected" id="googleAnalytics">Desconectado</div>
+                        <button class="btn btn-sm btn-primary" onclick="salesBot.connectIntegration('analytics')">Conectar</button>
                     </div>
                 </div>
             </section>
 
             <!-- Logs -->
             <section class="panel-section full-width">
-                <h2>Logs do Bot</h2>
+                <h2>📝 Logs do Sistema</h2>
                 <div class="logs-container">
                     <div class="log-filters">
                         <select id="logFilter">
                             <option value="all">Todos os logs</option>
-                            <option value="info">Informações</option>
-                            <option value="warning">Avisos</option>
+                            <option value="sales">Vendas</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="system">Sistema</option>
                             <option value="error">Erros</option>
                         </select>
-                        <button id="exportLogs" class="btn btn-secondary">Exportar Logs</button>
+                        <button id="exportLogs" class="btn btn-secondary">📤 Exportar</button>
                     </div>
                     <div id="logs" class="logs"></div>
-                    <button id="clearLogs" class="btn btn-secondary">Limpar Logs</button>
+                    <button id="clearLogs" class="btn btn-secondary">🗑️ Limpar Logs</button>
                 </div>
             </section>
         </div>
     </div>
 
     <script src="script.js"></script>
-    
+
     <!-- PWA Installation Script -->
     <script>
         // Service Worker Registration
@@ -439,8 +482,8 @@
         // PWA Install Prompt
         let deferredPrompt;
         const installBtn = document.createElement('button');
-        installBtn.textContent = '📱 Instalar App';
-        installBtn.className = 'btn btn-primary install-btn';
+        installBtn.textContent = '📱 Instalar Sales Bot';
+        installBtn.className = 'btn btn-success install-btn';
         installBtn.style.display = 'none';
         installBtn.style.position = 'fixed';
         installBtn.style.bottom = '20px';
@@ -468,10 +511,10 @@
 
         window.addEventListener('appinstalled', () => {
             installBtn.style.display = 'none';
-            console.log('PWA foi instalada');
+            console.log('Sales Bot PWA foi instalado');
         });
 
-        // Prevent zoom on double tap for iOS
+        // Prevent zoom on mobile
         let lastTouchEnd = 0;
         document.addEventListener('touchend', function (event) {
             const now = (new Date()).getTime();
@@ -480,19 +523,6 @@
             }
             lastTouchEnd = now;
         }, false);
-
-        // Disable pinch zoom
-        document.addEventListener('gesturestart', function (e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('gesturechange', function (e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('gestureend', function (e) {
-            e.preventDefault();
-        });
     </script>
 </body>
 </html>
